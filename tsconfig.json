@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "module": "amd",
-    "outFile": "./dist/bundle.js",
+    "module": "ES6",
     "outDir": "./dist/",
     "rootDir": "./",
     "sourceMap": true,
@@ -10,7 +9,8 @@
     "jsx": "react",
     "esModuleInterop": true,
     "strict": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "typeRoots": ["node_modules/@types", "src/typings"]
   },
 
   "exclude": ["node_modules"],

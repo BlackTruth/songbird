@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader';
 
-import { Hello } from './components/hello';
+import { App } from './app/App';
 
 import 'core-js/stable';
 
 import 'regenerator-runtime/runtime';
 
-const App = () => <Hello compiler="TypeScript" framework="React" />;
-const AppWithHot = hot(module)(App);
-const mountNode = document.getElementById('example');
+const app = () => <App />;
+const AppWithHot = hot(module)(app);
+const mountNode = document.getElementById('root');
 
 ReactDOM.render(<AppWithHot />, mountNode);

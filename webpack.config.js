@@ -90,22 +90,17 @@ const config = (env) => ({
         test: /\.module\.(css|scss|sass)$/,
         use: [
           env && env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: true,
-            },
-          },
+			'typings-for-css-modules-loader?modules&namedExport&camelCase&sass&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss-loader',
-          'sass-loader',
+          'sass-loader?sourceMap',
         ],
       },
     ],
   },
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
+	alias: { 'react-dom': '@hot-loader/react-dom'  },
   },
 
   devtool: 'source-map',
