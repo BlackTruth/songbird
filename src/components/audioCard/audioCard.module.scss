@@ -1,0 +1,43 @@
+@import "src/constants/global";
+
+.audio-card {
+  display: flex;
+  flex-direction: column;
+  background-color: $card-color;
+  border-radius: $border-radius;
+  padding: $padding;
+
+  &__main {
+    display: flex;
+    flex-direction: row;
+    &__image {
+      width: 300px;
+      height: 300px;
+      border-radius: $border-radius;
+
+    }
+    &__right {
+      display: block;
+      padding: $padding;
+
+      &_name, &_latin {
+        display: block;
+        border-bottom: $border-color 1px solid;
+        padding-bottom: $padding;
+      }
+
+      &_name {
+        font-size: xx-large;
+      }
+
+      &_audio {
+        display: block;
+        padding: $padding;
+      }
+    }
+  }
+  &__description {
+    display: block;
+    padding-top: $padding;
+  }
+}
