@@ -17,22 +17,24 @@ export interface HelloProps {
 const sections: string[] = Object.keys(Buttons).map((key) => `/${key}`);
 
 export const App: React.FC = () => (
-  <Router>
-    <Header score={11} />
-    <Switch>
+  <>
+    <Router>
+      <Header score={11} />
       <Route path="/" exact>
         <Redirect to="/warmup" />
       </Route>
-      <Route path={sections} exact>
-        <AudioCard
-          imageUrl="https://www.freevector.com/uploads/vector/preview/15564/FreeVector-Happy-Bird.jpg"
-          audioUrl="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-          name="Name"
-          latin="Latin"
-          description="Description"
-          isFull
-        />
-      </Route>
-    </Switch>
-  </Router>
+      <Switch>
+        <Route path={sections} exact>
+          <AudioCard
+            imageUrl="https://www.freevector.com/uploads/vector/preview/15564/FreeVector-Happy-Bird.jpg"
+            audioUrl="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            name="Name"
+            latin="Latin"
+            description="Description"
+            isFull
+          />
+        </Route>
+      </Switch>
+    </Router>
+  </>
 );

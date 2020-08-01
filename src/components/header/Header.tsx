@@ -1,19 +1,26 @@
-import React, { createRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { createRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { v4 as uuid } from 'uuid';
 import styles from './header.module.scss';
 
 import { Buttons } from '../../constants/strings';
+import navigationSubject from '../../subjects/NavigationSubject';
 
 interface IHeader {
   score: number,
 }
 
+declare module 'react' {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    indexkey?: string;
+  }
+}
+
 const Header: React.FC< IHeader > = ({ score }: IHeader) => {
   const mobileMenuRef = createRef<HTMLElement>();
+  const menuRef = createRef<HTMLUListElement>();
   const burgerRef = createRef<HTMLDivElement>();
-  const { pathname: location } = useLocation();
 
   const onMenuToggle = () => {
     const burger: HTMLElement | null = burgerRef.current;
@@ -44,6 +51,37 @@ const Header: React.FC< IHeader > = ({ score }: IHeader) => {
     }
   };
 
+  const setActiveMenu = (path: string) => {
+    const mobileMenu: HTMLElement | null = mobileMenuRef.current;
+    const mainMenu: HTMLElement | null = menuRef.current;
+    const updateMenu = (menu: HTMLElement, active: string) => {
+      menu.querySelectorAll('li').forEach((item) => {
+        const key: string | null = item.getAttribute('indexkey');
+        if (key && path.includes(key)) {
+          if (!item.classList.contains(active)) {
+            item.classList.add(active);
+          }
+        } else if (item.classList.contains(active)) {
+          item.classList.remove(active);
+        }
+      });
+    };
+    if (mobileMenu) {
+      updateMenu(mobileMenu, styles.active);
+    }
+    if (mainMenu) {
+      updateMenu(mainMenu, styles.menuButtonActive);
+    }
+  };
+
+  useEffect(() => {
+    navigationSubject.subscribe(setActiveMenu);
+
+    return () => {
+      navigationSubject.unsubscribe(setActiveMenu);
+    };
+  });
+
   return (
     <>
       <header>
@@ -66,29 +104,23 @@ const Header: React.FC< IHeader > = ({ score }: IHeader) => {
           </div>
         </div>
 
-        <ul className={styles.menu}>
-          {Object.keys(Buttons).map((button) => {
-            const isActive: boolean = location.includes(button);
-            return (
-              <li className={`${styles.menuButton} ${isActive ? styles.menuButtonActive : ''}`} key={uuid()}>
-                <Link to={button}>{Buttons[button as keyof typeof Buttons]}</Link>
-              </li>
-            );
-          })}
+        <ul className={styles.menu} ref={menuRef}>
+          {Object.keys(Buttons).map((button) => (
+            <li className={`${styles.menuButton}`} key={button} indexkey={button}>
+              <Link to={button}>{Buttons[button as keyof typeof Buttons]}</Link>
+            </li>
+          ))}
         </ul>
       </header>
       <menu ref={mobileMenuRef} className={styles.menuMobile}>
         <ul>
-          {Object.keys(Buttons).map((button) => {
-            const isActive: boolean = location.includes(button);
-            return (
-              <li className={`${isActive ? styles.active : ''}`} key={uuid()}>
-                <Link to={button} onClick={onMenuClick}>
-                  {Buttons[button as keyof typeof Buttons]}
-                </Link>
-              </li>
-            );
-          })}
+          {Object.keys(Buttons).map((button) => (
+            <li key={button} indexkey={button}>
+              <Link to={button} onClick={onMenuClick}>
+                {Buttons[button as keyof typeof Buttons]}
+              </Link>
+            </li>
+          ))}
         </ul>
       </menu>
     </>

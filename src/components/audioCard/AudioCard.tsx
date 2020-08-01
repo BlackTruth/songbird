@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Media, Player, controls } from 'react-media-player';
+import { useLocation } from 'react-router-dom';
+import navigationSubject from '../../subjects/NavigationSubject';
 
-import { v4 as uuid } from 'uuid';
 import styles from './audioCard.module.scss';
 
 const {
-  PlayPause, MuteUnmute, Progress, Duration, SeekBar, Volume, CurrentTime,
+  PlayPause, MuteUnmute, Duration, SeekBar, Volume, CurrentTime,
 } = controls;
 
 interface IAudioCard {
@@ -41,23 +42,26 @@ const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => (
 
 const AudioCard: React.FC< IAudioCard > = ({
   imageUrl, audioUrl, name, latin, description, isFull,
-}: IAudioCard) => (
-  <div className={styles.audioCard}>
-    <div className={styles.audioCardMain}>
-      <img className={styles.audioCardMainImage} src={imageUrl} alt={name} />
-      <div className={styles.audioCardMainRight}>
-        <span className={styles.audioCardMainRightName}>{name}</span>
-        {isFull ? (<span className={styles.audioCardMainRightLatin}>{latin}</span>) : null}
+}: IAudioCard) => {
+  navigationSubject.notify(useLocation().pathname);
+  return (
+    <div className={styles.audioCard}>
+      <div className={styles.audioCardMain}>
+        <img className={styles.audioCardMainImage} src={imageUrl} alt={name} />
+        <div className={styles.audioCardMainRight}>
+          <span className={styles.audioCardMainRightName}>{name}</span>
+          {isFull ? (<span className={styles.audioCardMainRightLatin}>{latin}</span>) : null}
 
-        <div className={styles.audioCardMainRightAudio}>
-          <MediaPlayer url={audioUrl} />
+          <div className={styles.audioCardMainRightAudio}>
+            <MediaPlayer url={audioUrl} />
+          </div>
         </div>
       </div>
+      {isFull ? (<span className={styles.audioCardDescription}>{description}</span>) : null}
     </div>
-    {isFull ? (<span className={styles.audioCardDescription}>{description}</span>) : null}
-  </div>
 
-);
+  );
+};
 
 AudioCard.defaultProps = {
   latin: undefined,
