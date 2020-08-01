@@ -112,6 +112,8 @@ const config = (env) => ({
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
+		favicon: './src/assets/favicon/asteroid.ico',
+
     }),
     env && env.analyze ? new BundleAnalyzerPlugin() : new NothingPlugin(),
     env && env.NODE_ENV === 'production'

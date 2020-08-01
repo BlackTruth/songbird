@@ -1,39 +1,160 @@
+@import "src/constants/global";
+
 header {
   display: flex;
   flex-direction: column;
+  animation: fall-down 0.4s ease-in-out;
+
+
+  @keyframes fall-down {
+    0% {
+      opacity: 0;
+      transform: translateY(-60px);
+    }
+    90% {
+      transform: translateY(20px);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 
   .info {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    cursor: default;
+
+    $glow-main-color: $primary-color;
+    $glow-second-color: $secondary-color;
+    @keyframes showup {
+      0% {
+        opacity: 0;
+        transform: scale(0.1,0.3);
+      }
+      33% {
+        opacity: 0;
+        transform: scale(0.1,0.3);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1,1);
+        text-shadow: 0 0 5px $default-color, 0 0 10px $default-color, 0 0 15px $glow-main-color, 0 0 20px $glow-main-color,
+          0 0 25px $glow-main-color, 0 0 30px $glow-main-color, 0 0 35px $glow-main-color;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1,1);
+        text-shadow: 0 0 10px $default-color, 0 0 15px $glow-second-color, 0 0 20px $glow-second-color,
+          0 0 25px $glow-second-color, 0 0 30px $glow-second-color, 0 0 35px $glow-second-color, 0 0 40px $glow-second-color;
+
+      }
+    }
 
     &__appName {
-      background: linear-gradient(90deg, white 53%, #009C76 47%);
+      background: linear-gradient(90deg, $default-color 53%, $primary-color 47%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-family: 'Leckerli One', cursive;
       font-size: 45px;
       margin: 0;
+      animation: showup 1.2s ease-in-out;
     }
 
     &__score {
-      color: white;
+      color: $default-color;
+    }
+
+    @media screen and (max-width: 900px) {
+      display: grid;
+      grid-template-columns: repeat(2, max-content);
+
+      &__score {
+        order: 3;
+        padding-bottom: $padding;
+      }
+    }
+  }
+
+  .burger-menu {
+    display: none;
+    position: relative;
+    z-index: 60;
+    transition: all 300ms;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+
+    span {
+      top: 0;
+      right: 0;
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background: $default-color;
+      transition: all 400ms, right 100ms 515ms cubic-bezier(.215, .61, .355, 1);
+    }
+
+    span:nth-child(2) {
+      right: 7px;
+      transition: all 515ms,right 100ms 515ms cubic-bezier(.215,.61,.355,1);
+    }
+
+    span:nth-child(3) {
+      right: 14px;
+      transition: opacity 200ms 515ms cubic-bezier(.215,.61,.355,1);
+    }
+
+    span:nth-child(4) {
+      right: 21px;
+      transition: all 515ms,right 100ms 515ms cubic-bezier(.215,.61,.355,1);
+
+    }
+
+    span:nth-child(5) {
+      right: 28px;
+      transition: all 400ms,right 100ms 515ms cubic-bezier(.215,.61,.355,1);
+    }
+
+    &--toggled {
+      span:nth-child(1), span:nth-child(5) {
+        right: 14px;
+        transition: all 400ms 280ms,right 200ms cubic-bezier(.175,.885,.32,1.275);
+        transform: rotate(315deg);
+      }
+      span:nth-child(2), span:nth-child(4) {
+        right: 14px;
+        transition: all 515ms 280ms,right 100ms 100ms cubic-bezier(.175,.885,.32,1.275),opacity 400ms 280ms;
+        transform: rotate(405deg);
+      }
+      span:nth-child(3) {
+        opacity: 0;
+        transition: opacity 0ms 200ms;
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      display: block;
     }
   }
 
   .menu{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     list-style-type: none;
-    background-color: #009C76;
+    background-color: $primary-color;
     padding: 0;
     margin: 10px 0;
-    border-radius: 10px;
+    border-radius: $border-radius;
+    overflow: hidden;
 
 
     &__button{
-      color: white;
+      flex: 1;
+      text-align: center;
       outline: none;
       border: 0;
       line-height: 30px;
@@ -41,10 +162,88 @@ header {
       font-size: 16px;
       cursor: pointer;
       width: max-content;
+      transition: all 0.5s;
+
+      a {
+        color: $default-color;
+      }
+
       &:hover {
-        background-color: #00BC8C;
+        background-color: $secondary-color;
+      }
+
+      &--active {
+        background-color: $border-color;
       }
     }
 
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+  }
+}
+
+.menu-mobile {
+  position: fixed;
+  display: none;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $primary-color;
+
+  ul {
+    margin: auto 0;
+    width: 100%;
+    li {
+      position: relative;
+      padding: 0 20px;
+      text-align: center;
+      a {
+        display: inline-block;
+        position: relative;
+        font-size: 18px;
+        color: $default-color;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 15px 20px;
+      }
+      a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 20px;
+        width: calc(100% - 40px);
+        height: 2px;
+        opacity: 0;
+        background-color: $default-color;
+        transform: translate3d(0,10px,0);
+        transition: 300ms;
+      }
+      a:hover::before {
+        opacity: 1;
+        transform: translate3d(0,0,0);
+      }
+    }
+    li.active {
+      background-color: $border-color;
+    }
+  }
+
+  &--enabled {
+    display: flex;
+    animation: menu-open 500ms;
+  }
+
+  @keyframes menu-open {
+    0% {
+      opacity: 0;
+      transform: scale(1.2,1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1,1);
+    }
   }
 }
