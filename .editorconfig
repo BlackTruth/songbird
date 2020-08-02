@@ -5,9 +5,6 @@ root = true
 end_of_line = lf
 
 [{*.js,*.ts, *.tsx, *.jsx}]
-indent_style = tab
-
-[lib/**.js]
 indent_style = space
 indent_size = 2
 

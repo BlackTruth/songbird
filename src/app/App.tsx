@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 
 import Header from '../components/header/Header';
-import AudioCard from '../components/audioCard/AudioCard';
+import Game from '../components/game/Game';
 
 import './app.module.scss';
 import { Buttons } from '../constants/strings';
@@ -24,16 +24,7 @@ export const App: React.FC = () => (
         <Redirect to="/warmup" />
       </Route>
       <Switch>
-        <Route path={sections} exact>
-          <AudioCard
-            imageUrl="https://www.freevector.com/uploads/vector/preview/15564/FreeVector-Happy-Bird.jpg"
-            audioUrl="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-            name="Name"
-            latin="Latin"
-            description="Description"
-            isFull
-          />
-        </Route>
+        <Route path={sections} exact component={Game} />
       </Switch>
     </Router>
   </>

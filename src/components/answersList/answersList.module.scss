@@ -1,0 +1,52 @@
+@import "src/constants/global";
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $card-color;
+  border-radius: $border-radius;
+  li {
+    position: relative;
+    border: 1px solid $border-color;
+    overflow: hidden;
+    &:first-child {
+      border-radius: $border-radius $border-radius 0 0;
+    }
+    &:last-child{
+      border-radius: 0 0 $border-radius $border-radius;
+    }
+    button {
+      font-size: 20px;
+      text-align: left;
+      border: none;
+      background: transparent;
+      width: 100%;
+      padding: 10px 30px;
+      color: $default-color;
+      transition: background-color 300ms;
+      &:hover {
+        background-color: $secondary-color;
+
+      }
+    }
+    &::before {
+      display: flex;
+      position: absolute;
+      height: 100%;
+      content: '⬤';
+      color: $border-color;
+      align-items: center;
+      left: 5px;
+    }
+  }
+
+  li.correct::before {
+    color: green;
+  }
+  li.mistake::before {
+    color: red;
+  }
+
+}

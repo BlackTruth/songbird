@@ -144,16 +144,14 @@ header {
   .menu{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     list-style-type: none;
-    background-color: $primary-color;
     padding: 0;
     margin: 10px 0;
-    border-radius: $border-radius;
     overflow: hidden;
 
 
     &__button{
-      flex: 1;
       text-align: center;
       outline: none;
       border: 0;
@@ -161,19 +159,87 @@ header {
       display: inline-block;
       font-size: 16px;
       cursor: pointer;
-      width: max-content;
       transition: all 0.5s;
+      list-style-type: none;
+      padding-right: $arrow-endings;
+
+      &:first-child {
+        padding-left: $arrow-endings;
+      }
+
+      &:nth-child(1n + 2) {
+        padding-left: $arrow-padding;
+      }
+
+      a::before {
+        content: '';
+        display:inline-block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: -$arrow-endings;
+        border-top: $arrow-endings solid $arrow-color;
+        border-bottom: $arrow-endings solid $arrow-color;
+        border-left: $arrow-endings solid transparent;
+      }
 
       a {
+        position: relative;
+        display: inline-block;
+        width:max-content;
+        background:$arrow-color;
+        min-height:$arrow-endings * 2;
+        line-height: $arrow-endings * 2;
+        text-align: center;
         color: $default-color;
+        padding: 0 5px 0 5px;
+      }
+
+
+      a::after {
+        content: '';
+        display:inline-block;
+        height: 0;
+        right: -$arrow-endings;
+        position: absolute;
+        border-top: $arrow-endings solid transparent;
+        border-bottom: $arrow-endings solid transparent;
+        border-left: $arrow-endings solid $arrow-color;
       }
 
       &:hover {
-        background-color: $secondary-color;
+        a{
+          background-color: $secondary-color;
+        }
+        a::before {
+          border-top-color: $secondary-color;
+          border-bottom-color: $secondary-color;
+        }
+        a::after {
+          border-left-color: $secondary-color;
+        }
       }
 
+
+
       &--active {
-        background-color: $border-color;
+        a{
+          background-color: $border-color;
+        }
+        a::before {
+          border-top-color: $border-color;
+          border-bottom-color: $border-color;
+        }
+        a::after {
+          border-left-color: $border-color;
+        }
+      }
+    }
+    @media screen and (max-width: 940px) {
+      &__button {
+        &:nth-child(1n + 2) {
+          padding-left: $arrow-padding-tablet;
+        }
       }
     }
 
