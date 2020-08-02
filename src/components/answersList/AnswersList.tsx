@@ -9,15 +9,20 @@ interface IAnswers {
 const AnswersList: React.FC<IAnswers> = ({
   answers, handleClick,
 }: IAnswers) => (
-  <ul className={styles.answers}>
-    {answers.map((answer) => (
-      <li className={styles.correct} key={answer}>
-        <button type="button" onClick={() => handleClick(answer)}>
-          {answer}
-        </button>
-      </li>
-    ))}
-  </ul>
+  <div className={styles.answers}>
+    <div className={`${styles.answersFace} ${styles.answersFaceFront}`}>
+      <ul>
+        {answers.map((answer) => (
+          <li className={styles.correct} key={answer}>
+            <button type="button" onClick={() => handleClick(answer)}>
+              {answer}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div className={`${styles.answersFace} ${styles.answersFaceBack}`} />
+  </div>
 );
 
 export default AnswersList;

@@ -54,15 +54,23 @@ const Header: React.FC< IHeader > = ({ score }: IHeader) => {
   const setActiveMenu = (path: string) => {
     const mobileMenu: HTMLElement | null = mobileMenuRef.current;
     const mainMenu: HTMLElement | null = menuRef.current;
-    const updateMenu = (menu: HTMLElement, active: string) => {
+    const updateMenu = (menu: HTMLElement, active: string, completed?: string) => {
+      let beforeActive = true;
       menu.querySelectorAll('li').forEach((item) => {
         const key: string | null = item.getAttribute('indexkey');
         if (key && path.includes(key)) {
+          beforeActive = false;
           if (!item.classList.contains(active)) {
             item.classList.add(active);
           }
         } else if (item.classList.contains(active)) {
           item.classList.remove(active);
+        }
+        if (completed) {
+          item.classList.remove(completed);
+        }
+        if (beforeActive && completed) {
+          item.classList.add(completed);
         }
       });
     };
@@ -70,7 +78,7 @@ const Header: React.FC< IHeader > = ({ score }: IHeader) => {
       updateMenu(mobileMenu, styles.active);
     }
     if (mainMenu) {
-      updateMenu(mainMenu, styles.menuButtonActive);
+      updateMenu(mainMenu, styles.menuButtonActive, styles.menuButtonCompleted);
     }
   };
 
@@ -114,6 +122,7 @@ const Header: React.FC< IHeader > = ({ score }: IHeader) => {
       </header>
       <menu ref={mobileMenuRef} className={styles.menuMobile}>
         <ul>
+          <li>Your current level</li>
           {Object.keys(Buttons).map((button) => (
             <li key={button} indexkey={button}>
               <Link to={button} onClick={onMenuClick}>

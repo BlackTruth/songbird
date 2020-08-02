@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import AudioCard from '../audioCard/AudioCard';
 import AnswersList from '../answersList/AnswersList';
+import Button from '../button/Button';
 import navigationSubject from '../../subjects/NavigationSubject';
 
 const Game: React.FC = () => {
@@ -21,6 +22,7 @@ const Game: React.FC = () => {
         handleClick={() => {
         }}
       />
+      <Button label="Next" onClick={() => {}} />
     </>
   );
 };

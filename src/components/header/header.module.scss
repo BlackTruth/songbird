@@ -7,17 +7,20 @@ header {
 
 
   @keyframes fall-down {
+
     0% {
       opacity: 0;
       transform: translateY(-60px);
     }
+
     90% {
-      transform: translateY(20px);
       opacity: 0.9;
+      transform: translateY(20px);
     }
+
     100% {
-      transform: translateY(0);
       opacity: 1;
+      transform: translateY(0);
     }
   }
 
@@ -29,21 +32,26 @@ header {
 
     $glow-main-color: $primary-color;
     $glow-second-color: $secondary-color;
+
     @keyframes showup {
+
       0% {
         opacity: 0;
         transform: scale(0.1,0.3);
       }
+
       33% {
         opacity: 0;
         transform: scale(0.1,0.3);
       }
+
       60% {
         opacity: 1;
         transform: scale(1,1);
         text-shadow: 0 0 5px $default-color, 0 0 10px $default-color, 0 0 15px $glow-main-color, 0 0 20px $glow-main-color,
           0 0 25px $glow-main-color, 0 0 30px $glow-main-color, 0 0 35px $glow-main-color;
       }
+
       100% {
         opacity: 1;
         transform: scale(1,1);
@@ -54,13 +62,13 @@ header {
     }
 
     &__appName {
+      margin: 0;
+      font-size: 45px;
+      font-family: 'Leckerli One', cursive;
       background: linear-gradient(90deg, $default-color 53%, $primary-color 47%);
+      animation: showup 1.2s ease-in-out;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-family: 'Leckerli One', cursive;
-      font-size: 45px;
-      margin: 0;
-      animation: showup 1.2s ease-in-out;
     }
 
     &__score {
@@ -79,19 +87,19 @@ header {
   }
 
   .burger-menu {
-    display: none;
     position: relative;
     z-index: 60;
+    display: none;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
     transition: all 300ms;
     cursor: pointer;
-    height: 30px;
-    width: 30px;
-    line-height: 30px;
 
     span {
+      position: absolute;
       top: 0;
       right: 0;
-      position: absolute;
       width: 2px;
       height: 100%;
       background: $default-color;
@@ -120,16 +128,19 @@ header {
     }
 
     &--toggled {
+
       span:nth-child(1), span:nth-child(5) {
         right: 14px;
         transition: all 400ms 280ms,right 200ms cubic-bezier(.175,.885,.32,1.275);
         transform: rotate(315deg);
       }
+
       span:nth-child(2), span:nth-child(4) {
         right: 14px;
         transition: all 515ms 280ms,right 100ms 100ms cubic-bezier(.175,.885,.32,1.275),opacity 400ms 280ms;
         transform: rotate(405deg);
       }
+
       span:nth-child(3) {
         opacity: 0;
         transition: opacity 0ms 200ms;
@@ -141,27 +152,27 @@ header {
     }
   }
 
-  .menu{
+  .menu {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    list-style-type: none;
-    padding: 0;
     margin: 10px 0;
+    padding: 0;
     overflow: hidden;
+    list-style-type: none;
 
 
-    &__button{
-      text-align: center;
-      outline: none;
-      border: 0;
-      line-height: 30px;
+    &__button {
       display: inline-block;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.5s;
-      list-style-type: none;
       padding-right: $arrow-endings;
+      font-size: 16px;
+      line-height: 30px;
+      text-align: center;
+      border: 0;
+      outline: none;
+      transition: all 0.5s;
+      cursor: pointer;
+      list-style-type: none;
 
       &:first-child {
         padding-left: $arrow-endings;
@@ -172,49 +183,52 @@ header {
       }
 
       a::before {
-        content: '';
-        display:inline-block;
         position: absolute;
+        left: -$arrow-endings;
+        display:inline-block;
         width: 0;
         height: 0;
-        left: -$arrow-endings;
         border-top: $arrow-endings solid $arrow-color;
         border-bottom: $arrow-endings solid $arrow-color;
         border-left: $arrow-endings solid transparent;
+        content: '';
       }
 
       a {
         position: relative;
         display: inline-block;
         width:max-content;
-        background:$arrow-color;
         min-height:$arrow-endings * 2;
+        padding: 0 5px 0 5px;
         line-height: $arrow-endings * 2;
         text-align: center;
         color: $default-color;
-        padding: 0 5px 0 5px;
+        background:$arrow-color;
       }
 
 
       a::after {
-        content: '';
+        position: absolute;
+        right: -$arrow-endings;
         display:inline-block;
         height: 0;
-        right: -$arrow-endings;
-        position: absolute;
         border-top: $arrow-endings solid transparent;
         border-bottom: $arrow-endings solid transparent;
         border-left: $arrow-endings solid $arrow-color;
+        content: '';
       }
 
-      &:hover {
-        a{
+      &--active {
+
+        a {
           background-color: $secondary-color;
         }
+
         a::before {
           border-top-color: $secondary-color;
           border-bottom-color: $secondary-color;
         }
+
         a::after {
           border-left-color: $secondary-color;
         }
@@ -222,21 +236,27 @@ header {
 
 
 
-      &--active {
-        a{
+      &--completed {
+
+        a {
           background-color: $border-color;
         }
+
         a::before {
           border-top-color: $border-color;
           border-bottom-color: $border-color;
         }
+
         a::after {
           border-left-color: $border-color;
         }
       }
     }
+
     @media screen and (max-width: 940px) {
+
       &__button {
+
         &:nth-child(1n + 2) {
           padding-left: $arrow-padding-tablet;
         }
@@ -251,47 +271,58 @@ header {
 
 .menu-mobile {
   position: fixed;
-  display: none;
-  z-index: 50;
   top: 0;
   left: 0;
+  z-index: 50;
+  display: none;
   width: 100%;
   height: 100%;
   background-color: $primary-color;
 
   ul {
-    margin: auto 0;
     width: 100%;
+    margin: auto 0;
+
     li {
       position: relative;
       padding: 0 20px;
       text-align: center;
+
+      &:first-child {
+        padding-bottom: 20px;
+        opacity: 0.8;
+        cursor: default;
+      }
+
       a {
-        display: inline-block;
         position: relative;
+        display: inline-block;
+        padding: 15px 20px;
         font-size: 18px;
+        letter-spacing: 1px;
         color: $default-color;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        padding: 15px 20px;
       }
+
       a::before {
-        content: '';
         position: absolute;
         bottom: 0;
         left: 20px;
         width: calc(100% - 40px);
         height: 2px;
-        opacity: 0;
         background-color: $default-color;
-        transform: translate3d(0,10px,0);
+        opacity: 0;
         transition: 300ms;
+        transform: translate3d(0,10px,0);
+        content: '';
       }
+
       a:hover::before {
         opacity: 1;
         transform: translate3d(0,0,0);
       }
     }
+
     li.active {
       background-color: $border-color;
     }
@@ -303,10 +334,12 @@ header {
   }
 
   @keyframes menu-open {
+
     0% {
       opacity: 0;
       transform: scale(1.2,1.2);
     }
+
     100% {
       opacity: 1;
       transform: scale(1,1);
