@@ -22,17 +22,22 @@ interface IAudioPlayer {
 
 const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => (
   <Media>
-    <div className="media">
-      <div className="media-player">
-        <Player src={url} />
+    <div>
+      <div>
+        <Player src={url} onPlay={() => { console.log(); }} />
       </div>
-      <div className="media-controls">
+      <div className={styles.audioCardMainRightAudioControls}>
         <PlayPause />
-        <CurrentTime />
-        <SeekBar />
-        <Duration />
-        <MuteUnmute />
-        <Volume />
+        <SeekBar className={styles.seekBar} />
+        <div className={styles.audioCardMainRightAudioControlsSound}>
+          <MuteUnmute />
+          <Volume className={styles.volume} />
+          <div className={styles.audioCardMainRightAudioControlsTime}>
+            <CurrentTime />
+            <div>/</div>
+            <Duration />
+          </div>
+        </div>
       </div>
     </div>
   </Media>

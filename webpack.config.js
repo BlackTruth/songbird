@@ -63,6 +63,7 @@ const config = (env) => ({
             loader: 'url-loader',
             options: {
               limit: 8192,
+              esModule: false,
             },
           },
         ],

@@ -25,6 +25,7 @@ export const App: React.FC = () => (
       </Route>
       <Switch>
         <Route path={sections} exact component={Game} />
+
       </Switch>
     </Router>
   </>

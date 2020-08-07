@@ -9,7 +9,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 const app = () => <App />;
-const AppWithHot = hot(module)(app);
+// const AppWithHot = hot(module)(app);
 const mountNode = document.getElementById('root');
 
-ReactDOM.render(<AppWithHot />, mountNode);
+ReactDOM.render(<App />, mountNode);

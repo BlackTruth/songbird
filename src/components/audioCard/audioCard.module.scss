@@ -1,5 +1,42 @@
 @import "src/constants/global";
 
+@import './range-mixins.scss';
+
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@mixin play-inactive($color) {
+  $color: '#{$color}';
+  $color: str-replace($color, '#', '%23');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#{$color}" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>');
+}
+
+@mixin play-active($color) {
+  $color: '#{$color}';
+  $color: str-replace($color, '#', '%23');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#{$color}" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16h2V8H9v8zm3-14C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-4h2V8h-2v8z"/></svg>');
+}
+
+@mixin sound-on($color) {
+  $color: '#{$color}';
+  $color: str-replace($color, '#', '%23');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#{$color}" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>');
+}
+
+@mixin sound-off($color) {
+  $color: '#{$color}';
+  $color: str-replace($color, '#', '%23');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#{$color}" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>');
+}
+
 .audio-card {
   display: flex;
   flex-direction: column;
@@ -35,6 +72,83 @@
       &_audio {
         display: block;
         padding: $padding;
+
+          &__controls {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            &>button {
+              width: $play-audio-width;
+              height: $play-audio-width;
+              color: transparent;
+              background-color: transparent;
+              background-repeat: no-repeat;
+              background-size: $play-audio-width $play-audio-width;
+
+              @include play-inactive($primary-color);
+            }
+
+            &>button:hover {
+
+              @include play-active($secondary-color);
+              cursor: pointer;
+            }
+
+            &>input.seek-bar {
+              width: calc(100% - #{$play-audio-width});
+            }
+
+
+            &__sound {
+              position: relative;
+              top: -0.9em;
+              display: flex;
+              align-items: center;
+              padding-left: $play-audio-width + 8px;
+
+              &>button {
+                width: $sound-on-off-width;
+                height: $sound-on-off-width;
+                color: transparent;
+                background-color: transparent;
+                background-repeat: no-repeat;
+                background-size: $sound-on-off-width $sound-on-off-width;
+
+                @include sound-on($primary-color);
+              }
+
+              &>button:hover {
+
+                @include sound-off($secondary-color);
+                cursor: pointer;
+              }
+
+              &>input.volume {
+                width: calc(50% - #{$sound-on-off-width});
+              }
+
+            }
+
+            &__time {
+              display: flex;
+              flex-direction: row;
+              font-size: 12px;
+              font-family: 'IBM Plex Mono', monospace;
+            }
+
+            .pause {
+
+              @include play-active($primary-color);
+            }
+
+            .sound_off {
+
+              @include sound-off($primary-color);
+            }
+
+        }
       }
     }
   }
@@ -42,5 +156,83 @@
   &__description {
     display: block;
     padding-top: $padding;
+  }
+}
+
+input[type='range'] {
+
+  @include -range__reset(webkit, moz, ms);
+
+  $track-height: 3px;
+  $track-lower-color: $primary-color;
+  $track-upper-color: $range-dot-color;
+
+  $thumb-height: 14px;
+  $thumb-width: 14px;
+  $thumb-color: $range-dot-color;
+
+  width: 100%;
+  height: $thumb-height * 1.25;
+  margin: 0;
+  padding: 0 10px;
+  background-color: transparent;
+
+  &:hover,
+  &:active {
+
+    @include -range-thumb(webkit, moz, ms) {
+      transform: scale(1.25);
+    }
+  }
+
+  @include -range-track(webkit, moz, ms) {
+    width: 100%;
+    height: $track-height;
+    background-color: $track-upper-color;
+    border: 0;
+    cursor: pointer;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  // so we can style the lower progress
+
+  &::-webkit-slider-container {
+    background-size: inherit;
+  }
+
+  @include -range-track(webkit) {
+    background: {
+      image: linear-gradient($track-lower-color, $track-lower-color);
+      size: inherit;
+      repeat: no-repeat;
+    }
+  }
+
+  @include -range-fill-lower(webkit, moz, ms) {
+    background-color: $track-lower-color;
+  }
+
+  @include -range-thumb(webkit, moz, ms) {
+    width: $thumb-width;
+    height: $thumb-height;
+    background-color: $thumb-color;
+    border: 0;
+    border-radius: 50%;
+    transition: transform 150ms ease-out;
+    transform: scale(1);
+    cursor: grab;
+    transform-origin: 50% 50%;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  @include -range-thumb(webkit) {
+    position: relative;
+    top: -($thumb-height - $track-height) / 2 ;
   }
 }
