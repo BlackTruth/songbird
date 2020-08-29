@@ -57,6 +57,11 @@ $back-size-before: ();
   cursor: pointer;
   appearance: none;
 
+  &--disabled {
+    background-color: $border-color;
+    box-shadow: unset;
+  }
+
   &:focus {
     outline: 0;
   }

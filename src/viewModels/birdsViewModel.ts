@@ -2,7 +2,7 @@ import getBirdsData, { IBirdsData } from '../models/birdsModel';
 import preloadImage from '../utils/preloadMedia';
 import { Paths } from '../constants/strings';
 
-interface IBirdsDataExtended extends IBirdsData{
+export interface IBirdsDataExtended extends IBirdsData{
   isCorrect: boolean
   imageElement: string;
 }

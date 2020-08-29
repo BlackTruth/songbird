@@ -5,10 +5,14 @@ interface IButton {
   label: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
+  isDisabled?: boolean;
 }
 
-const Button: React.FC<IButton> = ({ label, className, onClick }: IButton) => {
+const Button: React.FC<IButton> = ({
+  label, className, onClick, isDisabled,
+}: IButton) => {
   const animateOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log('NET');
     e.preventDefault();
     const button: HTMLButtonElement = e.target as HTMLButtonElement;
     button.classList.remove(styles.animate);
@@ -21,8 +25,9 @@ const Button: React.FC<IButton> = ({ label, className, onClick }: IButton) => {
 
   return (
     <button
+      disabled={isDisabled}
       type="button"
-      className={`${styles.bubblyButton} ${className}`}
+      className={`${styles.bubblyButton} ${className} ${isDisabled ? styles.bubblyButtonDisabled : ''}`}
       onClick={animateOnClick}
     >
       {label}
@@ -32,6 +37,7 @@ const Button: React.FC<IButton> = ({ label, className, onClick }: IButton) => {
 
 Button.defaultProps = {
   className: '',
+  isDisabled: false,
 };
 
 export default Button;

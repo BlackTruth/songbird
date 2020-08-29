@@ -3,15 +3,17 @@ import { Media, Player, controls } from 'react-media-player';
 
 import styles from './audioCard.module.scss';
 
+import defaultBird from '../../assets/images/defaultBird.jpg';
+
 const {
   PlayPause, MuteUnmute, Duration, SeekBar, Volume, CurrentTime,
 } = controls;
 
 interface IAudioCard {
   className: string,
-  image: string,
-  audioUrl: string,
-  name: string,
+  image?: string,
+  audioUrl?: string,
+  name?: string,
   latin?: string,
   description?: string,
   isFull?: boolean,
@@ -55,12 +57,12 @@ const AudioCard: React.FC< IAudioCard > = ({
   } else {
     data = (
       <div className={styles.audioCardMain}>
-        <img src={image} alt="bird" className={styles.audioCardMainImage} />
+        <img src={!isFull && !isCorrect ? defaultBird : image} alt="bird" className={styles.audioCardMainImage} />
         <div className={styles.audioCardMainRight}>
           <span className={styles.audioCardMainRightName}>{!isFull && !isCorrect ? '*****' : name}</span>
           {isFull ? (<span className={styles.audioCardMainRightLatin}>{latin}</span>) : null}
           <div className={styles.audioCardMainRightAudio}>
-            <MediaPlayer url={audioUrl} />
+            <MediaPlayer url={audioUrl || ''} />
           </div>
         </div>
       </div>
@@ -83,6 +85,9 @@ const AudioCard: React.FC< IAudioCard > = ({
 };
 
 AudioCard.defaultProps = {
+  image: defaultBird,
+  audioUrl: '',
+  name: 'not found',
   latin: undefined,
   description: undefined,
   isFull: false,
