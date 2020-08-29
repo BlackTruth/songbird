@@ -1,10 +1,19 @@
 enum Buttons {
-  warmup= 'Разминка',
-  sparrow='Воробьиные',
+  warmup = 'Разминка',
+  sparrow ='Воробьиные',
   forest = 'Лесные птицы',
   sing = 'Певчие птицы',
   predatory = 'Хищные птицы',
   sea = 'Морские птицы',
+}
+
+enum Paths {
+  '/warmup',
+  '/sparrow',
+  '/forest',
+  '/sing',
+  '/predatory',
+  '/sea',
 }
 
 // const buttons: string[] = [
@@ -15,4 +24,4 @@ export default {
   Buttons,
 };
 
-export { Buttons };
+export { Buttons, Paths };

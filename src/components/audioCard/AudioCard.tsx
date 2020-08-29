@@ -8,12 +8,15 @@ const {
 } = controls;
 
 interface IAudioCard {
-  imageUrl: string,
+  className: string,
+  image: string,
   audioUrl: string,
   name: string,
   latin?: string,
   description?: string,
-  isFull?: boolean
+  isFull?: boolean,
+  isAnswered?: boolean,
+  isCorrect?: boolean,
 }
 
 interface IAudioPlayer {
@@ -24,7 +27,7 @@ const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => (
   <Media>
     <div>
       <div>
-        <Player src={url} onPlay={() => { console.log(); }} />
+        <Player src={url} onPlay={() => { console.log(1); }} />
       </div>
       <div className={styles.audioCardMainRightAudioControls}>
         <PlayPause />
@@ -44,28 +47,47 @@ const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => (
 );
 
 const AudioCard: React.FC< IAudioCard > = ({
-  imageUrl, audioUrl, name, latin, description, isFull,
-}: IAudioCard) => (
-  <div className={styles.audioCard}>
-    <div className={styles.audioCardMain}>
-      <img className={styles.audioCardMainImage} src={imageUrl} alt={name} />
-      <div className={styles.audioCardMainRight}>
-        <span className={styles.audioCardMainRightName}>{name}</span>
-        {isFull ? (<span className={styles.audioCardMainRightLatin}>{latin}</span>) : null}
-        <div className={styles.audioCardMainRightAudio}>
-          <MediaPlayer url={audioUrl} />
+  className, image, audioUrl, name, latin, description, isFull, isAnswered, isCorrect,
+}: IAudioCard) => {
+  let data = null;
+  if (isFull && !isAnswered) {
+    data = (<div>Ответь на вопрос</div>);
+  } else {
+    data = (
+      <div className={styles.audioCardMain}>
+        <img src={image} alt="bird" className={styles.audioCardMainImage} />
+        <div className={styles.audioCardMainRight}>
+          <span className={styles.audioCardMainRightName}>{!isFull && !isCorrect ? '*****' : name}</span>
+          {isFull ? (<span className={styles.audioCardMainRightLatin}>{latin}</span>) : null}
+          <div className={styles.audioCardMainRightAudio}>
+            <MediaPlayer url={audioUrl} />
+          </div>
         </div>
       </div>
+    );
+    if (isFull) {
+      data = (
+        <>
+          {data}
+          <span className={styles.audioCardDescription}>{description}</span>
+        </>
+      );
+    }
+  }
+  return (
+    <div className={`${styles.audioCard} ${className}`}>
+      {data}
     </div>
-    {isFull ? (<span className={styles.audioCardDescription}>{description}</span>) : null}
-  </div>
 
-);
+  );
+};
 
 AudioCard.defaultProps = {
   latin: undefined,
   description: undefined,
   isFull: false,
+  isAnswered: false,
+  isCorrect: false,
 };
 
 export default AudioCard;

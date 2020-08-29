@@ -2,14 +2,15 @@ import React from 'react';
 import styles from './answersList.module.scss';
 
 interface IAnswers {
+  className: string,
   answers: string[],
   handleClick: (answer: string) => void,
 }
 
 const AnswersList: React.FC<IAnswers> = ({
-  answers, handleClick,
+  className, answers, handleClick,
 }: IAnswers) => (
-  <div className={styles.answers}>
+  <div className={`${styles.answers} ${className}`}>
     <div className={`${styles.answersFace} ${styles.answersFaceFront}`}>
       <ul>
         {answers.map((answer) => (

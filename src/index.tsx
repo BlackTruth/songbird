@@ -8,7 +8,7 @@ import 'core-js/stable';
 
 import 'regenerator-runtime/runtime';
 
-const app = () => <App />;
+// const app = () => <App />;
 // const AppWithHot = hot(module)(app);
 const mountNode = document.getElementById('root');
 
