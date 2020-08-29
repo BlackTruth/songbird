@@ -96,7 +96,8 @@ const Header: React.FC< IHeader > = ({ score }: IHeader) => {
         <div className={styles.info}>
           <h1 className={styles.infoAppName}>SongBird</h1>
           <div className={styles.infoScore}>
-            Score:
+            Очки:
+            {' '}
             {score}
           </div>
           <div

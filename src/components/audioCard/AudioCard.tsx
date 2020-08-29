@@ -53,7 +53,7 @@ const AudioCard: React.FC< IAudioCard > = ({
 }: IAudioCard) => {
   let data = null;
   if (isFull && !isAnswered) {
-    data = (<div>Ответь на вопрос</div>);
+    data = (<div>Прослушайте аудио и выберите название птицы, чей голос прозвучал.</div>);
   } else {
     data = (
       <div className={styles.audioCardMain}>

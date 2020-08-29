@@ -3,8 +3,13 @@ import styles from './answersList.module.scss';
 
 interface IAnswers {
   className: string,
-  answers: string[],
+  answers: IAnswerItem[],
   handleClick: (answer: string) => void,
+}
+
+export interface IAnswerItem {
+  name: string,
+  correct?: boolean,
 }
 
 const AnswersList: React.FC<IAnswers> = ({
@@ -13,8 +18,8 @@ const AnswersList: React.FC<IAnswers> = ({
   <div className={`${styles.answers} ${className}`}>
     <div className={`${styles.answersFace} ${styles.answersFaceFront}`}>
       <ul>
-        {answers.map((answer) => (
-          <li className={styles.correct} key={answer}>
+        {answers.map(({ name: answer, correct }) => (
+          <li className={`${correct ? styles.correct : ''} ${correct === false ? styles.mistake : ''}`} key={answer}>
             <button type="button" onClick={() => handleClick(answer)}>
               {answer}
             </button>
