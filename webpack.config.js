@@ -69,8 +69,8 @@ const config = (env) => ({
         ],
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: 'file-loader',
+        test: /\.(woff|woff2|eot|ttf|otf|mp3)$/,
+        use: 'file-loader?name=app/assets/[name].[ext]',
       },
       {
         test: /\.(css|scss|sass)$/,

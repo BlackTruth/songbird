@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { v4 as uuid } from 'uuid';
@@ -7,9 +7,7 @@ import styles from './header.module.scss';
 import { Buttons } from '../../constants/strings';
 import navigationSubject from '../../subjects/NavigationSubject';
 
-interface IHeader {
-  score: number,
-}
+import scoreSubject from '../../subjects/ScoreSubject';
 
 declare module 'react' {
   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
@@ -17,7 +15,17 @@ declare module 'react' {
   }
 }
 
-const Header: React.FC< IHeader > = ({ score }: IHeader) => {
+const Header: React.FC = () => {
+  const [score, setScore] = useState(0);
+  const addScore = (newPoints: number) => {
+    setScore(score + newPoints);
+  };
+  useEffect(() => {
+    scoreSubject.subscribe(addScore);
+    return () => {
+      scoreSubject.unsubscribe(addScore);
+    };
+  });
   const mobileMenuRef = createRef<HTMLElement>();
   const menuRef = createRef<HTMLUListElement>();
   const burgerRef = createRef<HTMLDivElement>();

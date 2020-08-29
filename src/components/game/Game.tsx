@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import correctAudio from '../../assets/sounds/correct.mp3';
+import wrongAudio from '../../assets/sounds/wrong.mp3';
 import AudioCard from '../audioCard/AudioCard';
 import AnswersList, { IAnswerItem } from '../answersList/AnswersList';
 import Button from '../button/Button';
@@ -7,6 +9,8 @@ import navigationSubject from '../../subjects/NavigationSubject';
 import styles from './game.module.scss';
 import modifyBirdsData, { IBirdsDataExtended } from '../../viewModels/birdsViewModel';
 import { Paths } from '../../constants/strings';
+import { useAudio } from '../../utils/preloadMedia';
+import scoreSubject from '../../subjects/ScoreSubject';
 
 const Game: React.FC = () => {
   const history = useHistory();
@@ -22,15 +26,23 @@ const Game: React.FC = () => {
   const truthy = birdsData.find((x) => x.isCorrect);
   const [answers, setAnswers] = useState<IAnswerItem[]>(birdsData.map(({ name }) => ({ name })));
 
+  const [playingCorrect, toggleCorrect] = useAudio(correctAudio);
+  const [playingWrong, toggleWrong] = useAudio(wrongAudio);
+
   const onAnswer = (name: string) => {
     setAnswered(true);
     let correct = false;
     if (truthy && truthy.name === name) {
       setCorrect(true);
       correct = true;
+      toggleCorrect();
+      scoreSubject.notify(1);
     }
 
     if (!isCorrect) {
+      if (!correct) {
+        toggleWrong();
+      }
       setAnswers((state) => {
         const correctBird = state.find((bird) => bird.name === name);
         if (correctBird) correctBird.correct = correct;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   HashRouter as Router, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -19,7 +19,7 @@ const sections: string[] = Object.keys(Buttons).map((key) => `/${key}`);
 export const App: React.FC = () => (
   <>
     <Router>
-      <Header score={11} />
+      <Header />
       <Route path="/" exact>
         <Redirect to="/warmup" />
       </Route>
