@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   HashRouter as Router, Route, Switch, Redirect,
 } from 'react-router-dom';
@@ -25,7 +25,6 @@ export const App: React.FC = () => (
       </Route>
       <Switch>
         <Route path={sections} exact component={Game} />
-
       </Switch>
     </Router>
   </>

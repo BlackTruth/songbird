@@ -3,14 +3,25 @@
 
 .answers {
   position: relative;
+  min-height: $min-height;
   animation: flip-vertical 1.6s linear both;
   transform-style: preserve-3d;
+
+  @media screen and (max-width: 935px) {
+    min-height: 0;
+  }
+
 
   &__face {
     position: absolute;
     width: 100%;
     height: 100%;
+    min-height: $min-height;
     backface-visibility: hidden;
+
+    @media screen and (max-width: 935px) {
+      min-height: 0;
+    }
 
     &--back {
       top: 0;
@@ -32,15 +43,25 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
+        min-height: $min-height;
         box-sizing: border-box;
         background-color: $card-color;
         border-radius: $border-radius;
 
+        @media screen and (max-width: 935px) {
+          min-height: 0;
+        }
+
         li {
           position: relative;
           height: 20%;
+          min-height: $min-height / $min-height-devider;
           overflow: hidden;
           border: 1px solid $border-color;
+
+          @media screen and (max-width: 935px) {
+            min-height: 0;
+          }
 
           &:first-child {
             border-radius: $border-radius $border-radius 0 0;
@@ -52,6 +73,7 @@
 
           button {
             width: 100%;
+            min-height: $min-height / $min-height-devider;
             padding: 10px 30px;
             font-size: 20px;
             text-align: left;
@@ -59,6 +81,10 @@
             background: transparent;
             border: none;
             transition: background-color 300ms;
+
+            @media screen and (max-width: 935px) {
+              min-height: 0;
+            }
 
             &:hover {
               background-color: $secondary-color;

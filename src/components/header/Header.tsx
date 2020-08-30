@@ -1,5 +1,4 @@
 import React, { createRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { v4 as uuid } from 'uuid';
 import styles from './header.module.scss';
@@ -50,14 +49,14 @@ const Header: React.FC = () => {
     }
   };
 
-  const onMenuClick = () => {
-    const burger: HTMLElement | null = burgerRef.current;
-    const menu: HTMLElement | null = mobileMenuRef.current;
-    if (menu && burger) {
-      menu.classList.remove(styles.menuMobileEnabled);
-      burger.classList.remove(styles.burgerMenuToggled);
-    }
-  };
+  // const onMenuClick = () => {
+  //   const burger: HTMLElement | null = burgerRef.current;
+  //   const menu: HTMLElement | null = mobileMenuRef.current;
+  //   if (menu && burger) {
+  //     menu.classList.remove(styles.menuMobileEnabled);
+  //     burger.classList.remove(styles.burgerMenuToggled);
+  //   }
+  // };
 
   const setActiveMenu = (path: string) => {
     const mobileMenu: HTMLElement | null = mobileMenuRef.current;
@@ -124,19 +123,19 @@ const Header: React.FC = () => {
         <ul className={styles.menu} ref={menuRef}>
           {Object.keys(Buttons).map((button) => (
             <li className={`${styles.menuButton}`} key={button} indexkey={button}>
-              <Link to={button}>{Buttons[button as keyof typeof Buttons]}</Link>
+              <span>{Buttons[button as keyof typeof Buttons]}</span>
             </li>
           ))}
         </ul>
       </header>
       <menu ref={mobileMenuRef} className={styles.menuMobile}>
         <ul>
-          <li>Your current level</li>
+          <li>Текущий уровень</li>
           {Object.keys(Buttons).map((button) => (
             <li key={button} indexkey={button}>
-              <Link to={button} onClick={onMenuClick}>
+              <span>
                 {Buttons[button as keyof typeof Buttons]}
-              </Link>
+              </span>
             </li>
           ))}
         </ul>

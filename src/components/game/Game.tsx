@@ -34,23 +34,34 @@ const Game: React.FC = () => {
     setAnswered(true);
     let correct = false;
     if (truthy && truthy.name === name) {
-      setCorrect(true);
-      correct = true;
-      toggleCorrect();
-      scoreSubject.notify(score);
-      setScore(maxScore);
+      if (!isCorrect) {
+        setCorrect(true);
+        correct = true;
+        toggleCorrect();
+        scoreSubject.notify(score);
+        setScore(maxScore);
+      }
     }
 
     if (!isCorrect) {
-      if (!correct) {
-        toggleWrong();
-        setScore(score - 1);
+      let needUpdate = false;
+      const currentBird = answers.find((bird) => bird.name === name);
+      if (currentBird) {
+        if (currentBird.correct === undefined) {
+          needUpdate = true;
+        }
       }
       setAnswers((state) => {
         const correctBird = state.find((bird) => bird.name === name);
-        if (correctBird) correctBird.correct = correct;
+        if (correctBird) {
+          correctBird.correct = correct;
+        }
         return state;
       });
+      if (!correct && needUpdate) {
+        toggleWrong();
+        setScore(score - 1);
+      }
     }
     setAnswer(birdsData.find((bird) => bird.name === name));
   };

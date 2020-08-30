@@ -32,7 +32,6 @@ interface ISeekBar {
 const CustomSeekBar: React.FC<ISeekBar> = ({ media, style, className }: ISeekBar) => {
   let isPlayingOnMouseDown = false;
   let onChangeUsed = false;
-  const isChanging = true;
   const { duration, currentTime } = media;
 
   const handleMouseDown = () => {

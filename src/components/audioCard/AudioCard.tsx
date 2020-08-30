@@ -29,7 +29,7 @@ const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => (
   <Media>
     <div>
       <div>
-        <Player src={url} onPlay={() => { console.log(1); }} />
+        <Player src={url} onPlay={() => {}} />
       </div>
       <div className={styles.audioCardMainRightAudioControls}>
         <PlayPause />

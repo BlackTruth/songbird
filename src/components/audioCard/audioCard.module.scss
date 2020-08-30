@@ -48,21 +48,30 @@
     display: flex;
     flex-direction: row;
 
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
     &__image {
       width: 10em;
       height: 10em;
       border-radius: $border-radius;
-
     }
 
     &__right {
       display: block;
       padding: $padding;
+      padding-bottom: 0;
 
       &_name, &_latin {
         display: block;
         padding-bottom: $padding;
         border-bottom: $border-color 1px solid;
+
+        @media screen and (max-width: 500px) {
+          text-align: center;
+        }
       }
 
       &_name {
@@ -155,7 +164,7 @@
 
   &__description {
     display: block;
-    padding-top: $padding;
+    text-align: justify;
   }
 }
 

@@ -12,7 +12,6 @@ const Button: React.FC<IButton> = ({
   label, className, onClick, isDisabled,
 }: IButton) => {
   const animateOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log('NET');
     e.preventDefault();
     const button: HTMLButtonElement = e.target as HTMLButtonElement;
     button.classList.remove(styles.animate);

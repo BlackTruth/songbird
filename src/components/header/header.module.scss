@@ -75,7 +75,7 @@ header {
       color: $default-color;
     }
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 935px) {
       display: grid;
       grid-template-columns: repeat(2, max-content);
 
@@ -147,7 +147,7 @@ header {
       }
     }
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 935px) {
       display: block;
     }
   }
@@ -171,7 +171,7 @@ header {
       border: 0;
       outline: none;
       transition: all 0.5s;
-      cursor: pointer;
+      cursor: default;
       list-style-type: none;
 
       &:first-child {
@@ -182,7 +182,7 @@ header {
         padding-left: $arrow-padding;
       }
 
-      a::before {
+      span::before {
         position: absolute;
         left: -$arrow-endings;
         display:inline-block;
@@ -194,7 +194,7 @@ header {
         content: '';
       }
 
-      a {
+      span {
         position: relative;
         display: inline-block;
         width:max-content;
@@ -207,7 +207,7 @@ header {
       }
 
 
-      a::after {
+      span::after {
         position: absolute;
         right: -$arrow-endings;
         display:inline-block;
@@ -220,16 +220,16 @@ header {
 
       &--active {
 
-        a {
+        span {
           background-color: $secondary-color;
         }
 
-        a::before {
+        span::before {
           border-top-color: $secondary-color;
           border-bottom-color: $secondary-color;
         }
 
-        a::after {
+        span::after {
           border-left-color: $secondary-color;
         }
       }
@@ -238,16 +238,16 @@ header {
 
       &--completed {
 
-        a {
+        span {
           background-color: $border-color;
         }
 
-        a::before {
+        span::before {
           border-top-color: $border-color;
           border-bottom-color: $border-color;
         }
 
-        a::after {
+        span::after {
           border-left-color: $border-color;
         }
       }
@@ -263,7 +263,7 @@ header {
       }
     }
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 935px) {
       display: none;
     }
   }
@@ -294,7 +294,7 @@ header {
         cursor: default;
       }
 
-      a {
+      span {
         position: relative;
         display: inline-block;
         padding: 15px 20px;
@@ -302,9 +302,10 @@ header {
         letter-spacing: 1px;
         color: $default-color;
         text-transform: uppercase;
+        cursor: default;
       }
 
-      a::before {
+      span::before {
         position: absolute;
         bottom: 0;
         left: 20px;
@@ -315,11 +316,6 @@ header {
         transition: 300ms;
         transform: translate3d(0,10px,0);
         content: '';
-      }
-
-      a:hover::before {
-        opacity: 1;
-        transform: translate3d(0,0,0);
       }
     }
 
