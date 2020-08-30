@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import correctAudio from '../../assets/sounds/correct.mp3';
 import wrongAudio from '../../assets/sounds/wrong.mp3';
 import AudioCard from '../audioCard/AudioCard';
@@ -8,7 +8,7 @@ import Button from '../button/Button';
 import navigationSubject from '../../subjects/NavigationSubject';
 import styles from './game.module.scss';
 import modifyBirdsData, { IBirdsDataExtended } from '../../viewModels/birdsViewModel';
-import { Paths } from '../../constants/strings';
+import { maxScore, Paths } from '../../constants/strings';
 import { useAudio } from '../../utils/preloadMedia';
 import scoreSubject from '../../subjects/ScoreSubject';
 
@@ -17,6 +17,7 @@ const Game: React.FC = () => {
   const [isCorrect, setCorrect] = useState(false);
   const [isAnswered, setAnswered] = useState(false);
   const [answer, setAnswer] = useState<IBirdsDataExtended | undefined>(undefined);
+  const [score, setScore] = useState(maxScore);
 
   const path: string = useLocation().pathname;
 
@@ -36,12 +37,14 @@ const Game: React.FC = () => {
       setCorrect(true);
       correct = true;
       toggleCorrect();
-      scoreSubject.notify(1);
+      scoreSubject.notify(score);
+      setScore(maxScore);
     }
 
     if (!isCorrect) {
       if (!correct) {
         toggleWrong();
+        setScore(score - 1);
       }
       setAnswers((state) => {
         const correctBird = state.find((bird) => bird.name === name);

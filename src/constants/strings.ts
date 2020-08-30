@@ -16,6 +16,8 @@ enum Paths {
   '/sea',
 }
 
+const maxScore = 5;
+
 // const buttons: string[] = [
 //   'Разминка', 'Воробьиные', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы',
 // ];
@@ -24,4 +26,4 @@ export default {
   Buttons,
 };
 
-export { Buttons, Paths };
+export { Buttons, Paths, maxScore };
