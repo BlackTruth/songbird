@@ -1,9 +1,10 @@
-import React, { createRef } from 'react';
+import React, { createRef, useEffect } from 'react';
 import { Media, Player, controls } from 'react-media-player';
 
 import styles from './audioCard.module.scss';
 
 import defaultBird from '../../assets/images/defaultBird.jpg';
+import correctSubject from '../../subjects/CorrectSubject';
 
 const {
   PlayPause, MuteUnmute, Duration, SeekBar, Volume, CurrentTime,
@@ -28,6 +29,20 @@ interface IAudioPlayer {
 const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => {
   const playRef = createRef<HTMLDivElement>();
   const playerRef = createRef<HTMLElement>();
+
+  const stopAudio = () => {
+    const player: any = playerRef.current;
+    player?.context.media.stop();
+  };
+
+  useEffect(() => {
+    correctSubject.subscribe(stopAudio);
+
+    return () => {
+      correctSubject.unsubscribe(stopAudio);
+    };
+  });
+
   const togglePlay = () => {
     const elems: HTMLElement | null = playRef.current;
     const play = elems?.querySelector('button');
@@ -41,10 +56,10 @@ const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => {
     <Media>
       <div>
         <div>
-          <Player src={url} onPlay={togglePlay} onPause={togglePlay} />
+          <Player src={url} onPlay={togglePlay} onPause={togglePlay} ref={playerRef} />
         </div>
         <div className={styles.audioCardMainRightAudioControls} ref={playRef}>
-          <PlayPause ref={playerRef} />
+          <PlayPause />
           <SeekBar className={styles.seekBar} />
           <div className={styles.audioCardMainRightAudioControlsSound}>
             <MuteUnmute />

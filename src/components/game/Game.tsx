@@ -15,6 +15,7 @@ import scoreSubject from '../../subjects/ScoreSubject';
 import Modal from '../modal/Modal';
 import useModal from '../../utils/useModal';
 import navigationSubject from '../../subjects/NavigationSubject';
+import correctSubject from '../../subjects/CorrectSubject';
 
 const Game: React.FC = () => {
   const history = useHistory();
@@ -71,6 +72,7 @@ const Game: React.FC = () => {
         setCorrect(true);
         correct = true;
         stopAudio();
+        correctSubject.notify();
         toggleCorrect();
         scoreSubject.notify(score);
         setTotal(total + score);
