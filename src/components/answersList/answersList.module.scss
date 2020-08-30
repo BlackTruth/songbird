@@ -1,0 +1,154 @@
+@import "src/constants/global";
+
+
+.answers {
+  position: relative;
+  min-height: $min-height;
+  animation: flip-vertical 1.6s linear both;
+  transform-style: preserve-3d;
+
+  @media screen and (max-width: 935px) {
+    min-height: 0;
+  }
+
+
+  &__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-height: $min-height;
+    backface-visibility: hidden;
+
+    @media screen and (max-width: 935px) {
+      min-height: 0;
+    }
+
+    &--back {
+      top: 0;
+      z-index: 10;
+      background-color: $primary-color;
+      border-radius: $border-radius;
+      transform: rotate3d(0,1,0,180deg);
+      animation: show-up 800ms linear;
+    }
+
+    &--front {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        min-height: $min-height;
+        box-sizing: border-box;
+        background-color: $card-color;
+        border-radius: $border-radius;
+
+        @media screen and (max-width: 935px) {
+          min-height: 0;
+        }
+
+        li {
+          position: relative;
+          height: 20%;
+          min-height: $min-height / $min-height-devider;
+          overflow: hidden;
+          border: 1px solid $border-color;
+
+          @media screen and (max-width: 935px) {
+            min-height: 0;
+          }
+
+          &:first-child {
+            border-radius: $border-radius $border-radius 0 0;
+          }
+
+          &:last-child {
+            border-radius: 0 0 $border-radius $border-radius;
+          }
+
+          button {
+            width: 100%;
+            min-height: $min-height / $min-height-devider;
+            padding: 10px 30px;
+            font-size: 20px;
+            text-align: left;
+            color: $default-color;
+            background: transparent;
+            border: none;
+            transition: background-color 300ms;
+
+            @media screen and (max-width: 935px) {
+              min-height: 0;
+            }
+
+            &:hover {
+              background-color: $secondary-color;
+
+            }
+          }
+
+          &::before {
+            position: absolute;
+            left: 5px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            color: $border-color;
+            content: '⬤';
+          }
+        }
+
+        li.correct::before {
+          color: green;
+        }
+
+        li.mistake::before {
+          color: red;
+        }
+      }
+    }
+  }
+}
+
+@keyframes show-up {
+
+  0% {
+    background-color: #222222;
+  }
+
+  25% {
+    background-color: #1a3e35;
+  }
+
+  50% {
+    background-color: #10644f;
+  }
+
+  75% {
+    background-color: #068768;
+  }
+
+  100% {
+    background-color: $primary-color;
+  }
+}
+
+@keyframes flip-vertical {
+
+  0% {
+    transform: rotateY(180deg);
+  }
+
+  50% {
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    transform: rotateY(0);
+  }
+}
