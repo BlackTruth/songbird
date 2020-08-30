@@ -42,6 +42,7 @@
   flex-direction: column;
   padding: $padding;
   background-color: $card-color;
+  border: 1px solid $border-color;
   border-radius: $border-radius;
 
   &__main {
@@ -93,6 +94,7 @@
               height: $play-audio-width;
               color: transparent;
               background-color: transparent;
+              cursor: pointer;
               background-repeat: no-repeat;
               background-size: $play-audio-width $play-audio-width;
 
@@ -101,8 +103,17 @@
 
             &>button:hover {
 
+              @include play-inactive($secondary-color);
+            }
+
+            &>button.playing {
+
+              @include play-active($primary-color);
+            }
+
+            &>button.playing:hover {
+
               @include play-active($secondary-color);
-              cursor: pointer;
             }
 
             &>input.seek-bar {
@@ -205,8 +216,6 @@ input[type='range'] {
       cursor: grabbing;
     }
   }
-
-  // so we can style the lower progress
 
   &::-webkit-slider-container {
     background-size: inherit;

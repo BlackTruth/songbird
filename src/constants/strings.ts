@@ -17,13 +17,12 @@ enum Paths {
 }
 
 const maxScore = 5;
-
-// const buttons: string[] = [
-//   'Разминка', 'Воробьиные', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы',
-// ];
+const scoreToWIn = 30;
 
 export default {
   Buttons,
 };
 
-export { Buttons, Paths, maxScore };
+export {
+  Buttons, Paths, maxScore, scoreToWIn,
+};

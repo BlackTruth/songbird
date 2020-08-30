@@ -6,16 +6,21 @@ const preloadImage = (url: string): string => {
   return url;
 };
 
-const useAudio = (url: string): [boolean, () => void] => {
+const useAudio = (url: string): [boolean, (play?: boolean) => void] => {
   const [audio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlaying(!playing);
+  const toggle = (play = true) => setPlaying(play);
 
   useEffect(() => {
     if (playing) {
+      audio.pause();
+      audio.currentTime = 0;
       audio.play();
-    } else { audio.pause(); }
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
   },
   [playing]);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { Media, Player, controls } from 'react-media-player';
 
 import styles from './audioCard.module.scss';
@@ -25,28 +25,41 @@ interface IAudioPlayer {
   url: string,
 }
 
-const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => (
-  <Media>
-    <div>
+const MediaPlayer: React.FC < IAudioPlayer > = ({ url }:IAudioPlayer) => {
+  const playRef = createRef<HTMLDivElement>();
+  const playerRef = createRef<HTMLElement>();
+  const togglePlay = () => {
+    const elems: HTMLElement | null = playRef.current;
+    const play = elems?.querySelector('button');
+    if (play?.classList.contains(styles.playing)) {
+      play?.classList.remove(styles.playing);
+    } else {
+      play?.classList.add(styles.playing);
+    }
+  };
+  return (
+    <Media>
       <div>
-        <Player src={url} onPlay={() => {}} />
-      </div>
-      <div className={styles.audioCardMainRightAudioControls}>
-        <PlayPause />
-        <SeekBar className={styles.seekBar} />
-        <div className={styles.audioCardMainRightAudioControlsSound}>
-          <MuteUnmute />
-          <Volume className={styles.volume} />
-          <div className={styles.audioCardMainRightAudioControlsTime}>
-            <CurrentTime />
-            <div>/</div>
-            <Duration />
+        <div>
+          <Player src={url} onPlay={togglePlay} onPause={togglePlay} />
+        </div>
+        <div className={styles.audioCardMainRightAudioControls} ref={playRef}>
+          <PlayPause ref={playerRef} />
+          <SeekBar className={styles.seekBar} />
+          <div className={styles.audioCardMainRightAudioControlsSound}>
+            <MuteUnmute />
+            <Volume className={styles.volume} />
+            <div className={styles.audioCardMainRightAudioControlsTime}>
+              <CurrentTime />
+              <div>/</div>
+              <Duration />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </Media>
-);
+    </Media>
+  );
+};
 
 const AudioCard: React.FC< IAudioCard > = ({
   className, image, audioUrl, name, latin, description, isFull, isAnswered, isCorrect,

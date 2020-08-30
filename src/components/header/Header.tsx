@@ -49,15 +49,6 @@ const Header: React.FC = () => {
     }
   };
 
-  // const onMenuClick = () => {
-  //   const burger: HTMLElement | null = burgerRef.current;
-  //   const menu: HTMLElement | null = mobileMenuRef.current;
-  //   if (menu && burger) {
-  //     menu.classList.remove(styles.menuMobileEnabled);
-  //     burger.classList.remove(styles.burgerMenuToggled);
-  //   }
-  // };
-
   const setActiveMenu = (path: string) => {
     const mobileMenu: HTMLElement | null = mobileMenuRef.current;
     const mainMenu: HTMLElement | null = menuRef.current;
